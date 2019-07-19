@@ -6,7 +6,11 @@ enum WeatherError: Error {
     case wrongUrl
 }
 
-class WeatherRepository {
+protocol WeatherRepository {
+    func getWeather() throws -> [Weather]
+}
+
+class WeatherRepositoryImpl : WeatherRepository {
     private let caller: Caller
     private let parser: Parser
     

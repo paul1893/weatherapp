@@ -33,7 +33,7 @@ class weatherRepositoryTests: XCTestCase {
         let mockParser = MockParser()
         
         // WHEN
-        let repository = WeatherRepository(with: mockCaller, with: mockParser)
+        let repository = WeatherRepositoryImpl(with: mockCaller, with: mockParser)
         
         do {
             let result = try repository.getWeather()
@@ -54,7 +54,7 @@ class weatherRepositoryTests: XCTestCase {
         let mockParser = MockParser()
         
         // WHEN
-        let repository = WeatherRepository(with: mockCaller, with: mockParser)
+        let repository = WeatherRepositoryImpl(with: mockCaller, with: mockParser)
         
         do {
             _ = try repository.getWeather()
@@ -72,7 +72,7 @@ class weatherRepositoryTests: XCTestCase {
         let mockParser = MockParser()
         
         // WHEN
-        let repository = WeatherRepository(with: mockCaller, with: mockParser)
+        let repository = WeatherRepositoryImpl(with: mockCaller, with: mockParser)
         
         do {
             _ = try repository.getWeather()
@@ -89,7 +89,7 @@ class weatherRepositoryTests: XCTestCase {
         let mockParser = MockParser(error: WeatherError.parsingError)
         
         // WHEN
-        let repository = WeatherRepository(with: mockCaller, with: mockParser)
+        let repository = WeatherRepositoryImpl(with: mockCaller, with: mockParser)
         
         do {
             _ = try repository.getWeather()

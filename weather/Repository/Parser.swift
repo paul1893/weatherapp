@@ -23,7 +23,7 @@ class WeatherParser : Parser {
     }
 }
 
-class WeatherJSON {
+struct WeatherJSON {
     var date: Int
     var temperature: Float
     
