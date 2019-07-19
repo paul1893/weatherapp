@@ -1,11 +1,3 @@
-//
-//  weatherTests.swift
-//  weatherTests
-//
-//  Created by Paul Bancarel on 19/07/2019.
-//  Copyright © 2019 Paul Bancarel. All rights reserved.
-//
-
 import XCTest
 @testable import weather
 
