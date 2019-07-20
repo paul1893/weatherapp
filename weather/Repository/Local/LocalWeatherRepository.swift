@@ -35,7 +35,19 @@ class LocalWeatherRepositoryImpl {
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                weatherList.append(Weather(temperature: data.value(forKey: "temperature") as! Float))
+                weatherList.append(
+                    Weather(
+                        timestamp: data.value(forKey: "timestamp") as! Int,
+                        date: data.value(forKey: "date") as! String,
+                        temperature: data.value(forKey: "temperature") as! Float,
+                        rain: data.value(forKey: "rain") as! Float,
+                        humidity: data.value(forKey: "humidity") as! Float,
+                        windAverage: data.value(forKey: "windAverage") as! Float,
+                        windBurst: data.value(forKey: "windBurst") as! Float,
+                        windDirection: data.value(forKey: "windDirection") as! Float,
+                        snow: data.value(forKey: "snow") as! Bool
+                    )
+                )
             }
         } catch {
             // Do nothing
@@ -47,7 +59,15 @@ class LocalWeatherRepositoryImpl {
         weatherList.forEach { (weather) in
             if let entity = NSEntityDescription.entity(forEntityName: tableName, in: context) {
                 let newWeather = NSManagedObject(entity: entity, insertInto: context)
+                newWeather.setValue(weather.timestamp, forKey: "timestampe")
+                newWeather.setValue(weather.date, forKey: "date")
                 newWeather.setValue(weather.temperature, forKey: "temperature")
+                newWeather.setValue(weather.rain, forKey: "rain")
+                newWeather.setValue(weather.humidity, forKey: "humidity")
+                newWeather.setValue(weather.windAverage, forKey: "windAverage")
+                newWeather.setValue(weather.windBurst, forKey: "windBurst")
+                newWeather.setValue(weather.windDirection, forKey: "windDirection")
+                newWeather.setValue(weather.snow, forKey: "snow")
                 
                 do {
                     try context.save()

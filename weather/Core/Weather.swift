@@ -1,9 +1,35 @@
 import Foundation
 
 struct Weather : Equatable {
+    var timestamp: Int
+    var date: String
     var temperature: Float
+    var rain: Float
+    var humidity: Float
+    var windAverage: Float
+    var windBurst: Float
+    var windDirection: Float
+    var snow: Bool
     
-    init(temperature: Float) {
+    init(
+        timestamp: Int,
+        date: String,
+        temperature: Float,
+        rain: Float,
+        humidity: Float,
+        windAverage: Float,
+        windBurst: Float,
+        windDirection: Float,
+        snow: Bool
+        ) {
+        self.timestamp = timestamp
+        self.date = date
         self.temperature = temperature
+        self.rain = rain
+        self.humidity = humidity
+        self.windAverage = windAverage
+        self.windBurst = windBurst
+        self.windDirection = windDirection
+        self.snow = snow
     }
 }

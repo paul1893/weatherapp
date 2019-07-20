@@ -1,7 +1,7 @@
 import XCTest
 @testable import weather
 
-class weatherPresenterTests: XCTestCase {
+class weatherInteractorTests: XCTestCase {
     
     class MockRepository : WeatherRepository {
         private let error : WeatherError?
@@ -14,7 +14,7 @@ class weatherPresenterTests: XCTestCase {
             if let error = error {
                 throw error
             }
-            return [Weather(temperature: 1.0)]
+            return [Weather(timestamp: 1, date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false)]
         }
     }
     
@@ -58,6 +58,6 @@ class weatherPresenterTests: XCTestCase {
         // THEN
         XCTAssertFalse(mockPresenter.error)
         XCTAssertEqual(mockPresenter.weatherList.count, 1)
-        XCTAssertEqual(mockPresenter.weatherList[0], Weather(temperature: 1.0))
+        XCTAssertEqual(mockPresenter.weatherList[0], Weather(timestamp: 1, date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false))
     }
 }

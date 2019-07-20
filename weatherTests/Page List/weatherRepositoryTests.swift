@@ -23,7 +23,11 @@ class weatherRepositoryTests: XCTestCase {
             if let error = error {
                 throw error
             }
-            return [WeatherJSON(withDate: 1, withTemperature: 2.0), nil, WeatherJSON(withDate: 0, withTemperature: 1.0)]
+            return [
+                WeatherJSON(withTimestamp: 1, withDate: "2019-07-20 17:00:00", withTemperature: 2.0, withRain: 0, withHumidity: 0, withWindAverage: 0, withWindBurst: 0, withWindDirection: 0, withSnow: "non"),
+                nil,
+                WeatherJSON(withTimestamp: 0, withDate: "2019-07-20 14:00:00", withTemperature: 1.0, withRain: 0, withHumidity: 0, withWindAverage: 0, withWindBurst: 0, withWindDirection: 0, withSnow: "oui")
+            ]
         }
     }
     
@@ -39,8 +43,8 @@ class weatherRepositoryTests: XCTestCase {
             let result = try repository.getWeather()
             
             // THEN
-            XCTAssertEqual(result[0], Weather(temperature: 2.0))
-            XCTAssertEqual(result[1], Weather(temperature: 1.0))
+            XCTAssertEqual(result[0], Weather(timestamp: 1, date: "2019-07-20 17:00:00", temperature: 2.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false))
+            XCTAssertEqual(result[1], Weather(timestamp: 0, date: "2019-07-20 14:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: true))
             XCTAssertEqual(result.count, 2)
         } catch  {
             XCTFail()

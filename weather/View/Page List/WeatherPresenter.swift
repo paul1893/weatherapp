@@ -7,7 +7,7 @@ protocol WeatherPresenter {
 
 protocol WeatherListView : class {
     func showError(message: String)
-    func showWeather(with model: [WeatherViewModel])
+    func showWeather(with modelList: [WeatherViewModel])
 }
 
 class WeatherPresenterImpl : WeatherPresenter {
@@ -29,7 +29,7 @@ class WeatherPresenterImpl : WeatherPresenter {
     
     func presentWeather(with weatherList: [Weather]) {
         let weatherViewModelList = weatherList.map({ (weather) -> WeatherViewModel in
-            return WeatherViewModel(temperature: "\(weather.temperature - 273.15) °C")
+            return WeatherViewModel(date: weather.date)
         })
         
         executor.runOnMain {

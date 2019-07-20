@@ -31,10 +31,20 @@ class WeatherRepositoryImpl : WeatherRepository {
             let weatherList = try parser.parse(data)
                 .compactMap({$0})
                 .sorted { (first, second) -> Bool in
-                    first.date > second.date
+                    first.timestamp > second.timestamp
             }
             return weatherList.map({ (weatherJSON) -> Weather in
-                Weather(temperature: weatherJSON.temperature)
+                Weather(
+                    timestamp: weatherJSON.timestamp,
+                    date: weatherJSON.date,
+                    temperature: weatherJSON.temperature,
+                    rain: weatherJSON.rain,
+                    humidity: weatherJSON.humidity,
+                    windAverage: weatherJSON.windAverage,
+                    windBurst: weatherJSON.windBurst,
+                    windDirection: weatherJSON.windDirection,
+                    snow: weatherJSON.snow == "oui" ? true : false
+                )
             })
         } else {
             throw WeatherError.wrongUrl

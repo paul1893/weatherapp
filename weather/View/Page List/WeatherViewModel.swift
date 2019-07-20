@@ -1,9 +1,9 @@
 import Foundation
 
 struct WeatherViewModel : Equatable {
-    let temperature : String
+    let date : String
     
-    init(temperature: String) {
-        self.temperature = temperature
+    init(date: String) {
+        self.date = date
     }
 }
