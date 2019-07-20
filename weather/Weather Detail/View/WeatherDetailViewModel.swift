@@ -6,7 +6,6 @@ struct WeatherDetailViewModel : Equatable {
     var windAverage: String
     var windBurst: String
     var windDirection: String
-    var snow: Bool
     
     init(
         date: String,
@@ -15,8 +14,7 @@ struct WeatherDetailViewModel : Equatable {
         humidity: String,
         windAverage: String,
         windBurst: String,
-        windDirection: String,
-        snow: Bool
+        windDirection: String
         ) {
         self.date = date
         self.temperature = temperature
@@ -25,6 +23,5 @@ struct WeatherDetailViewModel : Equatable {
         self.windAverage = windAverage
         self.windBurst = windBurst
         self.windDirection = windDirection
-        self.snow = snow
     }
 }
