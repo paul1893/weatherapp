@@ -3,21 +3,21 @@ import XCTest
 
 class weatherDetailInteractorTests: XCTestCase {
     
-    class MockLocalRepository : LocalWeatherRepositoryImpl {
+    class MockLocalRepository : LocalWeatherRepository {
         var savedList : [Weather]? = nil
         var deleteWeatherListCalled: Bool = false
         var getSavedWeatherListCalled: Bool = false
         
-        override func deleteWeatherList() {
+        func deleteWeatherList() {
             deleteWeatherListCalled = true
         }
         
-        override func getSavedWeatherList() -> [Weather] {
+        func getSavedWeatherList() -> [Weather] {
             getSavedWeatherListCalled = true
-            return [Weather(timestamp: 1, date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false)]
+            return [Weather(timestamp: "1", date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false)]
         }
         
-        override func saveWeatherList(list weatherList: [Weather]) {
+        func saveWeatherList(list weatherList: [Weather]) {
             self.savedList = weatherList
         }
     }
@@ -47,7 +47,7 @@ class weatherDetailInteractorTests: XCTestCase {
             presenter: mockPresenter,
             executor: MockExecutor()
         )
-        interactor.getWeather(id: 0)
+        interactor.getWeather(id: "0")
         
         // THEN
         XCTAssertTrue(mockPresenter.error)
@@ -65,10 +65,10 @@ class weatherDetailInteractorTests: XCTestCase {
             presenter: mockPresenter,
             executor: MockExecutor()
         )
-        interactor.getWeather(id: 1)
+        interactor.getWeather(id: "1")
         
         // THEN
         XCTAssertFalse(mockPresenter.error)
-        XCTAssertEqual(mockPresenter.weather, Weather(timestamp: 1, date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false))
+        XCTAssertEqual(mockPresenter.weather, Weather(timestamp: "1", date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false))
     }
 }

@@ -54,11 +54,11 @@ class WeatherRepositoryImpl : WeatherRepository {
 }
 
 extension String {
-    func toTimestamp() -> Int? {
+    func toTimestamp() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat="yyyy-MM-dd HH:mm:ss"
         let result = dateFormatter.date(from: self)
         guard let date = result else { return nil }
-        return Int(date.timeIntervalSince1970)
+        return "\(Int(date.timeIntervalSince1970))"
     }
 }

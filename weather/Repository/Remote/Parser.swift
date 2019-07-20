@@ -40,7 +40,7 @@ class WeatherParser : Parser {
 }
 
 struct WeatherJSON {
-    var timestamp: Int
+    var timestamp: String
     var date: String
     var temperature: Float
     var rain: Float
@@ -51,7 +51,7 @@ struct WeatherJSON {
     var snow: String
     
     init(
-        withTimestamp timestamp: Int,
+        withTimestamp timestamp: String,
         withDate date: String,
         withTemperature temperature: Float,
         withRain rain: Float,

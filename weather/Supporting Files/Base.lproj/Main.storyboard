@@ -41,9 +41,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eW2-7s-uR4">
-                                <rect key="frame" x="291" y="701" width="53" height="30"/>
-                                <state key="normal" title="Refresh"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eW2-7s-uR4">
+                                <rect key="frame" x="281" y="697" width="63" height="34"/>
+                                <state key="normal" title="Refresh">
+                                    <color key="titleColor" red="0.99266296629999995" green="0.57052898409999997" blue="0.083314292129999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="refreshAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gg8-6O-3jF"/>
                                 </connections>

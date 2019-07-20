@@ -40,12 +40,12 @@ class weatherPresenterTests: XCTestCase {
         
         // WHEN
         let presenter = WeatherPresenterImpl(view: mockView, executor: MockExecutor())
-        presenter.presentWeather(with: [Weather(timestamp: 1, date: "2019-07-20 14:00:00", temperature: 273.15, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false)])
+        presenter.presentWeather(with: [Weather(timestamp: "1", date: "2019-07-20 14:00:00", temperature: 273.15, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false)])
         
         // THEN
         XCTAssertNil(mockView.message)
         XCTAssertEqual(mockView.model.count, 1)
-        XCTAssertEqual(mockView.model[0], WeatherViewModel(timestamp: 1, date: "2019-07-20 14:00:00"))
+        XCTAssertEqual(mockView.model[0], WeatherViewModel(timestamp: "1", date: "2019-07-20 14:00:00"))
     }
     
     func testPresentOutdatedData() {

@@ -35,7 +35,7 @@ class weatherDetailPresenterTests: XCTestCase {
         // WHEN
         let presenter = WeatherDetailPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with:
-            Weather(timestamp: 1,
+            Weather(timestamp: "1",
                     date: "2019-07-20 14:00:00",
                     temperature: 273.15,
                     rain: 0,
@@ -66,7 +66,7 @@ class weatherDetailPresenterTests: XCTestCase {
         // WHEN
         let presenter = WeatherDetailPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with:
-            Weather(timestamp: 1,
+            Weather(timestamp: "1",
                     date: "2019-07-20 14:00:00",
                     temperature: 273.15,
                     rain: 0,
@@ -97,7 +97,7 @@ class weatherDetailPresenterTests: XCTestCase {
         // WHEN
         let presenter = WeatherDetailPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with:
-            Weather(timestamp: 1,
+            Weather(timestamp: "1",
                     date: "2019-07-20 14:00:00",
                     temperature: 273.15,
                     rain: 0,
@@ -128,7 +128,7 @@ class weatherDetailPresenterTests: XCTestCase {
         // WHEN
         let presenter = WeatherDetailPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with:
-            Weather(timestamp: 1,
+            Weather(timestamp: "1",
                     date: "2019-07-20 14:00:00",
                     temperature: 273.15,
                     rain: 0,
@@ -159,7 +159,7 @@ class weatherDetailPresenterTests: XCTestCase {
         // WHEN
         let presenter = WeatherDetailPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with:
-            Weather(timestamp: 1,
+            Weather(timestamp: "1",
                     date: "2019-07-20 14:00:00",
                     temperature: 273.15,
                     rain: 0,
@@ -190,7 +190,7 @@ class weatherDetailPresenterTests: XCTestCase {
         // WHEN
         let presenter = WeatherDetailPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with:
-            Weather(timestamp: 1,
+            Weather(timestamp: "1",
                     date: "2019-07-20 14:00:00",
                     temperature: 273.15,
                     rain: 0,
@@ -221,7 +221,7 @@ class weatherDetailPresenterTests: XCTestCase {
         // WHEN
         let presenter = WeatherDetailPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with:
-            Weather(timestamp: 1,
+            Weather(timestamp: "1",
                     date: "2019-07-20 14:00:00",
                     temperature: 273.15,
                     rain: 0,
@@ -252,7 +252,7 @@ class weatherDetailPresenterTests: XCTestCase {
         // WHEN
         let presenter = WeatherDetailPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with:
-            Weather(timestamp: 1,
+            Weather(timestamp: "1",
                     date: "2019-07-20 14:00:00",
                     temperature: 273.15,
                     rain: 0,

@@ -1,7 +1,7 @@
 import Foundation
 
 struct Weather : Equatable {
-    var timestamp: Int
+    var timestamp: String
     var date: String
     var temperature: Float
     var rain: Float
@@ -12,7 +12,7 @@ struct Weather : Equatable {
     var snow: Bool
     
     init(
-        timestamp: Int,
+        timestamp: String,
         date: String,
         temperature: Float,
         rain: Float,

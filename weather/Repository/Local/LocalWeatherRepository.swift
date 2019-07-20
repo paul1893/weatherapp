@@ -37,7 +37,7 @@ class LocalWeatherRepositoryImpl: LocalWeatherRepository {
             for data in result as! [NSManagedObject] {
                 weatherList.append(
                     Weather(
-                        timestamp: data.value(forKey: "timestamp") as! Int,
+                        timestamp: data.value(forKey: "timestamp") as! String,
                         date: data.value(forKey: "date") as! String,
                         temperature: data.value(forKey: "temperature") as! Float,
                         rain: data.value(forKey: "rain") as! Float,
@@ -73,11 +73,11 @@ class LocalWeatherRepositoryImpl: LocalWeatherRepository {
                 newWeather.setValue(weather.windDirection, forKey: "windDirection")
                 newWeather.setValue(weather.snow, forKey: "snow")
             }
-        }
-        do {
-            try context.save()
-        } catch {
-            // Do nothing
+            do {
+                try context.save()
+            } catch {
+                // Do nothing
+            }
         }
     }
 }

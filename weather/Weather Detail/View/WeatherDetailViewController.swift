@@ -1,7 +1,7 @@
 import UIKit
 
 class WeatherDetailViewController: UIViewController, WeatherDetailView {
-    var id: Int!
+    var id: String!
     var interactor: WeatherDetailInteractor!
     
     @IBOutlet weak var temperatureLabel: UILabel!

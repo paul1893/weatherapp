@@ -5,7 +5,7 @@ protocol Router {
 }
 
 enum Link: Equatable {
-    case weatherDetail(id: Int)
+    case weatherDetail(id: String)
 }
 
 class AppRouter {
@@ -17,7 +17,7 @@ class AppRouter {
         return navigationController
     }
     
-    fileprivate func showWeatherDetail(_ id: Int) {
+    fileprivate func showWeatherDetail(_ id: String) {
         let viewController = WeatherModule.weatherDetailViewController(id)
         navigationController.pushViewController(viewController, animated: true)
     }

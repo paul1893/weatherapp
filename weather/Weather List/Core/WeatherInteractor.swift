@@ -48,7 +48,7 @@ class WeatherInteractor {
         self.presenter.presentWeather(with: weatherList)
     }
     
-    func selectRow(withId id: Int) {
+    func selectRow(withId id: String) {
         router.go(to: Link.weatherDetail(id: id))
     }
 }

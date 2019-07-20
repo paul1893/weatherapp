@@ -15,7 +15,7 @@ class WeatherModule {
         return viewController
     }
     
-    static func weatherDetailViewController(_ id: Int) -> UIViewController {
+    static func weatherDetailViewController(_ id: String) -> UIViewController {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: String(describing: WeatherDetailViewController.self)) as! WeatherDetailViewController
         viewController.id = id

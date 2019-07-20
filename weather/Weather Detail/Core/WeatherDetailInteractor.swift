@@ -15,7 +15,7 @@ class WeatherDetailInteractor {
         self.executor = executor
     }
     
-    func getWeather(id: Int) {
+    func getWeather(id: String) {
         executor.run {
             if let weather = self.localRepository.getSavedWeatherList().filter({ (weather) -> Bool in
                 weather.timestamp == id
