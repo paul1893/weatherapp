@@ -26,7 +26,7 @@ class WeatherDetailPresenterImpl : WeatherDetailPresenter {
     func presentWeather(with weather: Weather) {
         let weatherDetailViewModel = WeatherDetailViewModel(
             date: weather.date,
-            temperature: "\(weather.temperature - 273.15) °C",
+            temperature: "\(Int(weather.temperature - 273.15)) °C",
             rain: "\(weather.rain) mm",
             humidity: "\(weather.humidity) %",
             windAverage: "\(weather.windAverage) km/h",

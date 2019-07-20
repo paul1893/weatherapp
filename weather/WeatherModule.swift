@@ -18,6 +18,10 @@ class WeatherModule {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: String(describing: WeatherDetailViewController.self)) as! WeatherDetailViewController
         viewController.id = id
+        viewController.interactor = WeatherDetailInteractor(
+            localRepository: LocalWeatherRepositoryImpl(),
+            presenter: WeatherDetailPresenterImpl(view: viewController)
+        )
         return viewController
     }
 }

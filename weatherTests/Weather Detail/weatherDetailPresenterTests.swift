@@ -50,7 +50,7 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.showErrorCalled)
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
-            temperature: "0.0 °C",
+            temperature: "0 °C",
             rain: "0.0 mm",
             humidity: "0.0 %",
             windAverage: "0.0 km/h",
@@ -81,7 +81,7 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.showErrorCalled)
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
-            temperature: "0.0 °C",
+            temperature: "0 °C",
             rain: "0.0 mm",
             humidity: "0.0 %",
             windAverage: "0.0 km/h",
@@ -112,7 +112,7 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.showErrorCalled)
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
-            temperature: "0.0 °C",
+            temperature: "0 °C",
             rain: "0.0 mm",
             humidity: "0.0 %",
             windAverage: "0.0 km/h",
@@ -143,7 +143,7 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.showErrorCalled)
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
-            temperature: "0.0 °C",
+            temperature: "0 °C",
             rain: "0.0 mm",
             humidity: "0.0 %",
             windAverage: "0.0 km/h",
@@ -174,7 +174,7 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.showErrorCalled)
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
-            temperature: "0.0 °C",
+            temperature: "0 °C",
             rain: "0.0 mm",
             humidity: "0.0 %",
             windAverage: "0.0 km/h",
@@ -205,7 +205,7 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.showErrorCalled)
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
-            temperature: "0.0 °C",
+            temperature: "0 °C",
             rain: "0.0 mm",
             humidity: "0.0 %",
             windAverage: "0.0 km/h",
@@ -236,7 +236,7 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.showErrorCalled)
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
-            temperature: "0.0 °C",
+            temperature: "0 °C",
             rain: "0.0 mm",
             humidity: "0.0 %",
             windAverage: "0.0 km/h",
@@ -267,7 +267,7 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertFalse(mockView.showErrorCalled)
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
-            temperature: "0.0 °C",
+            temperature: "0 °C",
             rain: "0.0 mm",
             humidity: "0.0 %",
             windAverage: "0.0 km/h",
