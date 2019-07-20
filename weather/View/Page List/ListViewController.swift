@@ -1,18 +1,22 @@
 import UIKit
+import CoreLocation
 
 class ListViewController: UIViewController, WeatherListView {
     
     @IBOutlet weak var tableView: UITableView!
     private var modelList = [WeatherViewModel]()
+    private let locationManager = CLLocationManager()
+    private lazy var interactor = WeatherInteractor(
+        repository: WeatherRepositoryImpl(with: CallerImpl(), with: WeatherParser()),
+        presenter: WeatherPresenterImpl(view: self)
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        let interactor = WeatherInteractor(
-            repository: WeatherRepositoryImpl(with: CallerImpl(), with: WeatherParser()),
-            presenter: WeatherPresenterImpl(view: self)
-        )
-        interactor.getWeatherList()
+        locationManager.delegate = self
+        
+        checkLocationPermission()
     }
     
     func showError(message: String) {
@@ -39,7 +43,42 @@ extension ListViewController : UITableViewDataSource {
         cell.textLabel?.text = model.date
         return cell
     }
+}
+
+extension ListViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationPermission()
+    }
     
+    func checkLocationPermission() {
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            break
+            
+        case .restricted, .denied:
+            showError(message: "You do not authorize the app to have access to yout location to get the weather".localized)
+            break
+            
+        case .authorizedWhenInUse, .authorizedAlways:
+            locationManager.requestLocation()
+            break
+        }
+    }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            interactor.getWeatherList(
+                latitude: location.coordinate.latitude,
+                longitude: location.coordinate.longitude
+            )
+        } else {
+            showError(message: "Cannot access your location".localized)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        showError(message: "Cannot access your location".localized)
+    }
 }
 

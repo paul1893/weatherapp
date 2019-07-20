@@ -1,1 +1,3 @@
 "Something went wrong cannot get the weather" = "Something went wrong cannot get the weather ! Please try again later";
+"You do not authorize the app to have access to yout location to get the weather" = "You do not authorize the app to have access to yout location to get the weather";
+"Cannot access your location" = "Cannot access your location";

@@ -7,7 +7,7 @@ enum WeatherError: Error {
 }
 
 protocol WeatherRepository {
-    func getWeather() throws -> [Weather]
+    func getWeather(withLatitude latitude: Double, withLongitude longitude: Double) throws -> [Weather]
 }
 
 class WeatherRepositoryImpl : WeatherRepository {
@@ -19,11 +19,12 @@ class WeatherRepositoryImpl : WeatherRepository {
         self.parser = parser
     }
     
-    private let apiUrl = "https://www.infoclimat.fr/public-api/gfs/json?_ll=48.85341,2.3488&_auth=AhgHEFMtU3FVeAA3BHJWfwRsBzJbLQYhAn5RMlg9A35UPwBhVjYBZwRqB3oOIQI0VnsDYAoxCTlUP1AoCHpRMAJoB2tTOFM0VToAZQQrVn0EKgdmW3sGIQJgUTBYMAN%2BVDUAZlYwAX0EbAdiDiACNVZnA3wKKgkwVDJQMQhmUTcCZQdmUzFTMlU5AH0EK1ZnBGMHZFtlBm0CNFE0WGEDM1Q%2FAGNWZAFkBGIHew42AjVWbQNnCjQJMFQzUD4IelEtAhgHEFMtU3FVeAA3BHJWfwRiBzlbMA%3D%3D&_c=ee18549d89365b7f4abe3be86cd2b67b"
+    private func apiUrl(_ latitude: Double, _ longitude: Double) -> String  {
+        return "https://www.infoclimat.fr/public-api/gfs/json?_ll=\(latitude),\(longitude)&_auth=AhgHEFMtU3FVeAA3BHJWfwRsBzJbLQYhAn5RMlg9A35UPwBhVjYBZwRqB3oOIQI0VnsDYAoxCTlUP1AoCHpRMAJoB2tTOFM0VToAZQQrVn0EKgdmW3sGIQJgUTBYMAN%2BVDUAZlYwAX0EbAdiDiACNVZnA3wKKgkwVDJQMQhmUTcCZQdmUzFTMlU5AH0EK1ZnBGMHZFtlBm0CNFE0WGEDM1Q%2FAGNWZAFkBGIHew42AjVWbQNnCjQJMFQzUD4IelEtAhgHEFMtU3FVeAA3BHJWfwRiBzlbMA%3D%3D&_c=ee18549d89365b7f4abe3be86cd2b67b"
+    }
     
-    func getWeather() throws -> [Weather] {
-        
-        if let url = URL(string: apiUrl) {
+    func getWeather(withLatitude latitude: Double, withLongitude longitude: Double) throws -> [Weather] {
+        if let url = URL(string: apiUrl(latitude, longitude)) {
             let (receivedData, error) = caller.get(with: url)
             guard error == nil else { throw WeatherError.serverError }
             guard let data = receivedData else { throw WeatherError.serverError }
@@ -31,7 +32,7 @@ class WeatherRepositoryImpl : WeatherRepository {
             let weatherList = try parser.parse(data)
                 .compactMap({$0})
                 .sorted { (first, second) -> Bool in
-                    first.timestamp > second.timestamp
+                    first.timestamp < second.timestamp
             }
             return weatherList.map({ (weatherJSON) -> Weather in
                 Weather(

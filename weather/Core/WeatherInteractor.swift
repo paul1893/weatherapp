@@ -11,10 +11,10 @@ class WeatherInteractor {
         self.executor = executor
     }
     
-    func getWeatherList() {
+    func getWeatherList(latitude: Double, longitude: Double) {
         executor.run {
             do {
-                let weatherList = try self.repository.getWeather()
+                let weatherList = try self.repository.getWeather(withLatitude: latitude, withLongitude: longitude)
                 self.presenter.presentWeather(with: weatherList)
             } catch {
                 self.presenter.presentError()

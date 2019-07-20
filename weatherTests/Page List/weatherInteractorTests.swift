@@ -10,7 +10,7 @@ class weatherInteractorTests: XCTestCase {
             self.error = error
         }
         
-        func getWeather() throws -> [Weather] {
+        func getWeather(withLatitude latitude: Double, withLongitude longitude: Double) throws -> [Weather] {
             if let error = error {
                 throw error
             }
@@ -39,7 +39,7 @@ class weatherInteractorTests: XCTestCase {
         
         // WHEN
         let interactor = WeatherInteractor(repository: mockRepository, presenter: mockPresenter, executor: MockExecutor())
-        interactor.getWeatherList()
+        interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
         XCTAssertTrue(mockPresenter.error)
@@ -53,7 +53,7 @@ class weatherInteractorTests: XCTestCase {
         
         // WHEN
         let interactor = WeatherInteractor(repository: mockRepository, presenter: mockPresenter, executor: MockExecutor())
-        interactor.getWeatherList()
+        interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
         XCTAssertFalse(mockPresenter.error)
