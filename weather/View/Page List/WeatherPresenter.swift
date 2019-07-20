@@ -12,20 +12,28 @@ protocol WeatherListView : class {
 
 class WeatherPresenterImpl : WeatherPresenter {
     private weak var view : WeatherListView?
+    private let executor: Executor
     
-    init(view: WeatherListView) {
+    init(view: WeatherListView, executor: Executor = Executor()) {
         self.view = view
+        self.executor = executor
     }
     
     func presentError() {
-        view?.showError(message:
-            "Something went wrong cannot get the weather".localized
-        )
+        executor.runOnMain {
+            self.view?.showError(message:
+                "Something went wrong cannot get the weather".localized
+            )
+        }
     }
     
     func presentWeather(with weatherList: [Weather]) {
-        view?.showWeather(with: weatherList.map({ (weather) -> WeatherViewModel in
+        let weatherViewModelList = weatherList.map({ (weather) -> WeatherViewModel in
             return WeatherViewModel(temperature: "\(weather.temperature - 273.15) °C")
-        }))
+        })
+        
+        executor.runOnMain {
+            self.view?.showWeather(with: weatherViewModelList)
+        }
     }
 }

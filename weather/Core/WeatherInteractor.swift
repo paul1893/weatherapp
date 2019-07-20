@@ -1,17 +1,5 @@
 import Foundation
-class Executor {
-    func run(function: @escaping () -> ()) {
-        DispatchQueue.global().async {
-            function()
-        }
-    }
-    
-    func runOnMain(function: @escaping () -> ()) {
-        DispatchQueue.main.async {
-            function()
-        }
-    }
-}
+
 class WeatherInteractor {
     private let repository: WeatherRepository
     private let presenter: WeatherPresenter

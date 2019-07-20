@@ -21,7 +21,7 @@ class weatherInteractorTests: XCTestCase {
         let mockView = MockView()
         
         // WHEN
-        let presenter = WeatherPresenterImpl(view: mockView)
+        let presenter = WeatherPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentError()
         
         // THEN
@@ -35,7 +35,7 @@ class weatherInteractorTests: XCTestCase {
         let mockView = MockView()
         
         // WHEN
-        let presenter = WeatherPresenterImpl(view: mockView)
+        let presenter = WeatherPresenterImpl(view: mockView, executor: MockExecutor())
         presenter.presentWeather(with: [Weather(temperature: 273.15)])
         
         // THEN
