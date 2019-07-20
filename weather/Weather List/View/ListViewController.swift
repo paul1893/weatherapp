@@ -4,6 +4,9 @@ import CoreLocation
 class ListViewController: UIViewController, WeatherListView {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var errorView: UIView!
+    @IBOutlet weak var loaderView: UIView!
+    @IBOutlet weak var errorLabel: UILabel!
     var interactor:  WeatherInteractor!
     private var modelList = [WeatherViewModel]()
     private let locationManager = CLLocationManager()
@@ -14,16 +17,30 @@ class ListViewController: UIViewController, WeatherListView {
         tableView.delegate = self
         locationManager.delegate = self
         
+        interactor.loadLocalWeatherList()
         checkLocationPermission()
     }
     
     func showError(message: String) {
-        
+        errorView.isHidden = false
+        errorLabel.text = message
     }
     
     func showWeather(with modelList: [WeatherViewModel]) {
+        errorView.isHidden = true
+        loaderView.isHidden = true
         self.modelList = modelList
         tableView.reloadData()
+    }
+    
+    func showEmptyWeather() {
+        loaderView.isHidden = false
+    }
+    
+    @IBAction func refreshAction(_ sender: Any) {
+        loaderView.isHidden = false
+        errorView.isHidden = true
+        checkLocationPermission()
     }
 }
 

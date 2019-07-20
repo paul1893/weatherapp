@@ -26,9 +26,9 @@ class WeatherInteractor {
     
     func getWeatherList(latitude: Double, longitude: Double) {
         executor.run {
-            if (!self.deviceManager.isOnline()){
-                let weatherList = self.localRepository.getSavedWeatherList()
-                self.presenter.presentWeather(with: weatherList)
+            if (!self.deviceManager.isOnline()) {
+                self.loadLocalWeatherList()
+                self.presenter.presentOutdatedData()
                 return
             }
             
@@ -41,6 +41,11 @@ class WeatherInteractor {
                 self.presenter.presentError()
             }
         }
+    }
+    
+    func loadLocalWeatherList() {
+        let weatherList = self.localRepository.getSavedWeatherList()
+        self.presenter.presentWeather(with: weatherList)
     }
     
     func selectRow(withId id: Int) {

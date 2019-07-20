@@ -2,12 +2,14 @@ import Foundation
 
 protocol WeatherPresenter {
     func presentError()
+    func presentOutdatedData()
     func presentWeather(with weatherList: [Weather])
 }
 
 protocol WeatherListView : class {
     func showError(message: String)
     func showWeather(with modelList: [WeatherViewModel])
+    func showEmptyWeather()
 }
 
 class WeatherPresenterImpl : WeatherPresenter {
@@ -27,16 +29,30 @@ class WeatherPresenterImpl : WeatherPresenter {
         }
     }
     
-    func presentWeather(with weatherList: [Weather]) {
-        let weatherViewModelList = weatherList.map({ (weather) -> WeatherViewModel in
-            return WeatherViewModel(
-                timestamp: weather.timestamp,
-                date: weather.date
-            )
-        })
-        
+    func presentOutdatedData() {
         executor.runOnMain {
-            self.view?.showWeather(with: weatherViewModelList)
+            self.view?.showError(message:
+                "This is offline data, they must be outdated".localized
+            )
+        }
+    }
+    
+    func presentWeather(with weatherList: [Weather]) {
+        if weatherList.count == 0 {
+            executor.runOnMain {
+                self.view?.showEmptyWeather()
+            }
+        } else {
+            let weatherViewModelList = weatherList.map({ (weather) -> WeatherViewModel in
+                return WeatherViewModel(
+                    timestamp: weather.timestamp,
+                    date: weather.date
+                )
+            })
+            
+            executor.runOnMain {
+                self.view?.showWeather(with: weatherViewModelList)
+            }
         }
     }
 }

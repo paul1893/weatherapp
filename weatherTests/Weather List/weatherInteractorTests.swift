@@ -57,11 +57,16 @@ class weatherInteractorTests: XCTestCase {
     }
     
     class MockPresenter : WeatherPresenter {
-        var error: Bool = false
+        var presentErrorCalled: Bool = false
+        var presentOutdatedDataCalled: Bool = false
         var weatherList: [Weather] = []
         
         func presentError() {
-            error = true
+            presentErrorCalled = true
+        }
+        
+        func presentOutdatedData() {
+            presentOutdatedDataCalled = true
         }
         
         func presentWeather(with weatherList: [Weather]) {
@@ -90,7 +95,7 @@ class weatherInteractorTests: XCTestCase {
         interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
-        XCTAssertTrue(mockPresenter.error)
+        XCTAssertTrue(mockPresenter.presentErrorCalled)
         XCTAssertEqual(mockPresenter.weatherList.count, 0)
     }
     
@@ -114,7 +119,7 @@ class weatherInteractorTests: XCTestCase {
         interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
-        XCTAssertFalse(mockPresenter.error)
+        XCTAssertFalse(mockPresenter.presentErrorCalled)
         XCTAssertTrue(mockLocalRepository.deleteWeatherListCalled)
         XCTAssertEqual(mockLocalRepository.savedList!, mockPresenter.weatherList)
         XCTAssertEqual(mockPresenter.weatherList.count, 1)
@@ -168,8 +173,37 @@ class weatherInteractorTests: XCTestCase {
         interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
-        XCTAssertFalse(mockPresenter.error)
+        XCTAssertFalse(mockPresenter.presentErrorCalled)
         XCTAssertFalse(mockLocalRepository.deleteWeatherListCalled)
+        XCTAssertTrue(mockPresenter.presentOutdatedDataCalled)
         XCTAssertEqual(mockPresenter.weatherList, weatherList)
+    }
+    
+    func testLoadLocalWeatherList() {
+        // GIVEN
+        let weatherList = [Weather(timestamp: 1, date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false)]
+        let mockRepository = MockRepository()
+        let mockDeviceManager = MockDeviceManager(isOnlineProperty: false)
+        let mockRouter = MockAppRouter()
+        let mockPresenter = MockPresenter()
+        let mockLocalRepository = MockLocalRepository()
+        mockLocalRepository.savedList = weatherList
+        
+        
+        // WHEN
+        let interactor = WeatherInteractor(
+            repository: mockRepository,
+            localRepository: mockLocalRepository,
+            presenter: mockPresenter,
+            deviceManager: mockDeviceManager,
+            router: mockRouter,
+            executor: MockExecutor()
+        )
+        interactor.loadLocalWeatherList()
+        
+        // THEN
+        XCTAssertFalse(mockPresenter.presentErrorCalled)
+        XCTAssertEqual(mockPresenter.weatherList, weatherList)
+        XCTAssertFalse(mockPresenter.presentOutdatedDataCalled)
     }
 }
