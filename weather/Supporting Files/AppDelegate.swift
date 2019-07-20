@@ -16,7 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let router = AppRouter()
+        WeatherModule.router = router
+        window = UIWindow()
+        window?.rootViewController = router.rootViewController()
+        window?.makeKeyAndVisible()
         return true
     }
 

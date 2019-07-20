@@ -37,6 +37,13 @@ class weatherInteractorTests: XCTestCase {
         }
     }
     
+    class MockAppRouter: Router {
+        var currentLink: Link? = nil
+        func go(to link: Link) {
+            self.currentLink = link
+        }
+    }
+    
     class MockPresenter : WeatherPresenter {
         var error: Bool = false
         var weatherList: [Weather] = []
@@ -55,10 +62,17 @@ class weatherInteractorTests: XCTestCase {
         // GIVEN
         let mockRepository = MockRepository(error: WeatherError.serverError)
         let mockLocalRepository = MockLocalRepository()
+        let mockRouter = MockAppRouter()
         let mockPresenter = MockPresenter()
         
         // WHEN
-        let interactor = WeatherInteractor(repository: mockRepository, localRepository: mockLocalRepository, presenter: mockPresenter, executor: MockExecutor())
+        let interactor = WeatherInteractor(
+            repository: mockRepository,
+            localRepository: mockLocalRepository,
+            presenter: mockPresenter,
+            router: mockRouter,
+            executor: MockExecutor()
+        )
         interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
@@ -70,10 +84,17 @@ class weatherInteractorTests: XCTestCase {
         // GIVEN
         let mockRepository = MockRepository()
         let mockLocalRepository = MockLocalRepository()
+        let mockRouter = MockAppRouter()
         let mockPresenter = MockPresenter()
         
         // WHEN
-        let interactor = WeatherInteractor(repository: mockRepository, localRepository: mockLocalRepository, presenter: mockPresenter, executor: MockExecutor())
+        let interactor = WeatherInteractor(
+            repository: mockRepository,
+            localRepository: mockLocalRepository,
+            presenter: mockPresenter,
+            router: mockRouter,
+            executor: MockExecutor()
+        )
         interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
@@ -82,5 +103,27 @@ class weatherInteractorTests: XCTestCase {
         XCTAssertEqual(mockLocalRepository.savedList!, mockPresenter.weatherList)
         XCTAssertEqual(mockPresenter.weatherList.count, 1)
         XCTAssertEqual(mockPresenter.weatherList[0], Weather(timestamp: 1, date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false))
+    }
+    
+    func testselectRow() {
+        // GIVEN
+        let mockRepository = MockRepository()
+        let mockLocalRepository = MockLocalRepository()
+        let mockRouter = MockAppRouter()
+        let mockPresenter = MockPresenter()
+        
+        // WHEN
+        let interactor = WeatherInteractor(
+            repository: mockRepository,
+            localRepository: mockLocalRepository,
+            presenter: mockPresenter,
+            router: mockRouter,
+            executor: MockExecutor()
+        )
+        interactor.selectRow(withId: 1)
+        
+        // THEN
+        XCTAssertNotNil(mockRouter.currentLink)
+        XCTAssertEqual(mockRouter.currentLink!, Link.weatherDetail(id: 1))
     }
 }

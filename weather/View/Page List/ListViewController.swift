@@ -4,17 +4,14 @@ import CoreLocation
 class ListViewController: UIViewController, WeatherListView {
     
     @IBOutlet weak var tableView: UITableView!
+    var interactor:  WeatherInteractor!
     private var modelList = [WeatherViewModel]()
     private let locationManager = CLLocationManager()
-    private lazy var interactor = WeatherInteractor(
-        repository: WeatherRepositoryImpl(with: CallerImpl(), with: WeatherParser()),
-        localRepository: LocalWeatherRepositoryImpl(),
-        presenter: WeatherPresenterImpl(view: self)
-    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         locationManager.delegate = self
         
         checkLocationPermission()
@@ -27,6 +24,13 @@ class ListViewController: UIViewController, WeatherListView {
     func showWeather(with modelList: [WeatherViewModel]) {
         self.modelList = modelList
         tableView.reloadData()
+    }
+}
+
+extension ListViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = modelList[indexPath.row]
+        interactor.selectRow(withId: model.timestamp)
     }
 }
 

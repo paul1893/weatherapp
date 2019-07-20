@@ -15,7 +15,6 @@ class weatherPresenterTests: XCTestCase {
         }
     }
     
-    
     func testPresentError() {
         // GIVEN
         let mockView = MockView()
@@ -41,6 +40,6 @@ class weatherPresenterTests: XCTestCase {
         // THEN
         XCTAssertNil(mockView.message)
         XCTAssertEqual(mockView.model.count, 1)
-        XCTAssertEqual(mockView.model[0], WeatherViewModel(date: "2019-07-20 14:00:00"))
+        XCTAssertEqual(mockView.model[0], WeatherViewModel(timestamp: 1, date: "2019-07-20 14:00:00"))
     }
 }

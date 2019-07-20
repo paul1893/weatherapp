@@ -29,7 +29,10 @@ class WeatherPresenterImpl : WeatherPresenter {
     
     func presentWeather(with weatherList: [Weather]) {
         let weatherViewModelList = weatherList.map({ (weather) -> WeatherViewModel in
-            return WeatherViewModel(date: weather.date)
+            return WeatherViewModel(
+                timestamp: weather.timestamp,
+                date: weather.date
+            )
         })
         
         executor.runOnMain {
