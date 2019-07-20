@@ -4,6 +4,7 @@ class WeatherInteractor {
     private let repository: WeatherRepository
     private let localRepository: LocalWeatherRepository
     private let presenter: WeatherPresenter
+    private let deviceManager: DeviceManager
     private let router: Router
     private let executor: Executor
     
@@ -11,18 +12,26 @@ class WeatherInteractor {
         repository : WeatherRepository,
         localRepository: LocalWeatherRepository,
         presenter: WeatherPresenter,
+        deviceManager: DeviceManager,
         router: Router,
         executor: Executor = Executor()
         ) {
         self.repository = repository
         self.localRepository = localRepository
         self.presenter = presenter
+        self.deviceManager = deviceManager
         self.router = router
         self.executor = executor
     }
     
     func getWeatherList(latitude: Double, longitude: Double) {
         executor.run {
+            if (!self.deviceManager.isOnline()){
+                let weatherList = self.localRepository.getSavedWeatherList()
+                self.presenter.presentWeather(with: weatherList)
+                return
+            }
+            
             do {
                 let weatherList = try self.repository.getWeather(withLatitude: latitude, withLongitude: longitude)
                 self.localRepository.deleteWeatherList()

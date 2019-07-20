@@ -9,6 +9,7 @@ class WeatherModule {
             repository: WeatherRepositoryImpl(with: CallerImpl(), with: WeatherParser()),
             localRepository: LocalWeatherRepositoryImpl(),
             presenter: WeatherPresenterImpl(view: viewController),
+            deviceManager: DeviceManagerImpl(),
             router: router
         )
         return viewController
