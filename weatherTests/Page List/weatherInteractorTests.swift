@@ -18,6 +18,25 @@ class weatherInteractorTests: XCTestCase {
         }
     }
     
+    class MockLocalRepository : LocalWeatherRepositoryImpl {
+        var savedList : [Weather]? = nil
+        var deleteWeatherListCalled: Bool = false
+        var getSavedWeatherListCalled: Bool = false
+        
+        override func deleteWeatherList() {
+            deleteWeatherListCalled = true
+        }
+        
+        override func getSavedWeatherList() -> [Weather] {
+            getSavedWeatherListCalled = true
+            return [Weather(timestamp: 1, date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false)]
+        }
+        
+        override func saveWeatherList(list weatherList: [Weather]) {
+            self.savedList = weatherList
+        }
+    }
+    
     class MockPresenter : WeatherPresenter {
         var error: Bool = false
         var weatherList: [Weather] = []
@@ -35,10 +54,11 @@ class weatherInteractorTests: XCTestCase {
     func testGetWeatherList_WhenRepositoryThrowError() {
         // GIVEN
         let mockRepository = MockRepository(error: WeatherError.serverError)
+        let mockLocalRepository = MockLocalRepository()
         let mockPresenter = MockPresenter()
         
         // WHEN
-        let interactor = WeatherInteractor(repository: mockRepository, presenter: mockPresenter, executor: MockExecutor())
+        let interactor = WeatherInteractor(repository: mockRepository, localRepository: mockLocalRepository, presenter: mockPresenter, executor: MockExecutor())
         interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
@@ -49,14 +69,17 @@ class weatherInteractorTests: XCTestCase {
     func testGetWeatherList() {
         // GIVEN
         let mockRepository = MockRepository()
+        let mockLocalRepository = MockLocalRepository()
         let mockPresenter = MockPresenter()
         
         // WHEN
-        let interactor = WeatherInteractor(repository: mockRepository, presenter: mockPresenter, executor: MockExecutor())
+        let interactor = WeatherInteractor(repository: mockRepository, localRepository: mockLocalRepository, presenter: mockPresenter, executor: MockExecutor())
         interactor.getWeatherList(latitude: 48, longitude: 2)
         
         // THEN
         XCTAssertFalse(mockPresenter.error)
+        XCTAssertTrue(mockLocalRepository.deleteWeatherListCalled)
+        XCTAssertEqual(mockLocalRepository.savedList!, mockPresenter.weatherList)
         XCTAssertEqual(mockPresenter.weatherList.count, 1)
         XCTAssertEqual(mockPresenter.weatherList[0], Weather(timestamp: 1, date: "2019-07-20 19:00:00", temperature: 1.0, rain: 0, humidity: 0, windAverage: 0, windBurst: 0, windDirection: 0, snow: false))
     }

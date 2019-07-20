@@ -8,6 +8,7 @@ class ListViewController: UIViewController, WeatherListView {
     private let locationManager = CLLocationManager()
     private lazy var interactor = WeatherInteractor(
         repository: WeatherRepositoryImpl(with: CallerImpl(), with: WeatherParser()),
+        localRepository: LocalWeatherRepositoryImpl(),
         presenter: WeatherPresenterImpl(view: self)
     )
     

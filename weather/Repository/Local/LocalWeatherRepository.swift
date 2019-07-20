@@ -5,10 +5,10 @@ import CoreData
 protocol LocalWeatherRepository {
     func deleteWeatherList()
     func getSavedWeatherList() -> [Weather]
-    func saveWeatherList(weatherList: [Weather])
+    func saveWeatherList(list weatherList: [Weather])
 }
 
-class LocalWeatherRepositoryImpl {
+class LocalWeatherRepositoryImpl: LocalWeatherRepository {
     private let tableName = "WeatherDb"
     private let context: NSManagedObjectContext
     
@@ -53,13 +53,17 @@ class LocalWeatherRepositoryImpl {
             // Do nothing
         }
         return weatherList
+            .compactMap({$0})
+            .sorted { (first, second) -> Bool in
+                first.timestamp < second.timestamp
+        }
     }
     
-    func saveWeatherList(weatherList: [Weather]) {
+    func saveWeatherList(list weatherList: [Weather]) {
         weatherList.forEach { (weather) in
             if let entity = NSEntityDescription.entity(forEntityName: tableName, in: context) {
                 let newWeather = NSManagedObject(entity: entity, insertInto: context)
-                newWeather.setValue(weather.timestamp, forKey: "timestampe")
+                newWeather.setValue(weather.timestamp, forKey: "timestamp")
                 newWeather.setValue(weather.date, forKey: "date")
                 newWeather.setValue(weather.temperature, forKey: "temperature")
                 newWeather.setValue(weather.rain, forKey: "rain")
@@ -68,13 +72,12 @@ class LocalWeatherRepositoryImpl {
                 newWeather.setValue(weather.windBurst, forKey: "windBurst")
                 newWeather.setValue(weather.windDirection, forKey: "windDirection")
                 newWeather.setValue(weather.snow, forKey: "snow")
-                
-                do {
-                    try context.save()
-                } catch {
-                    // Do nothing
-                }
             }
+        }
+        do {
+            try context.save()
+        } catch {
+            // Do nothing
         }
     }
 }
