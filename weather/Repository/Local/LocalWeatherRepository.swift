@@ -14,7 +14,8 @@ class LocalWeatherRepositoryImpl: LocalWeatherRepository {
     
     init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.context = appDelegate.persistentContainer.viewContext
+        self.context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        context.parent = appDelegate.persistentContainer.viewContext
     }
     
     func deleteWeatherList() {
