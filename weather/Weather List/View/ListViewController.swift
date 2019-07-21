@@ -98,7 +98,6 @@ extension ListViewController: CLLocationManagerDelegate {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
             break
-            
         case .restricted, .denied:
             showError(message: "You do not authorize the app to have access to yout location to get the weather".localized)
             break
@@ -106,6 +105,8 @@ extension ListViewController: CLLocationManagerDelegate {
         case .authorizedWhenInUse, .authorizedAlways:
             locationManager.requestLocation()
             break
+        default:
+            fatalError()
         }
     }
     
