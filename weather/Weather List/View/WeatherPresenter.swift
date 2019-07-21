@@ -8,7 +8,7 @@ protocol WeatherPresenter {
 
 protocol WeatherListView : class {
     func showError(message: String)
-    func showWeather(with modelList: [WeatherViewModel])
+    func showWeather(with model: WeatherListViewModel)
     func showEmptyWeather()
 }
 
@@ -49,9 +49,12 @@ class WeatherPresenterImpl : WeatherPresenter {
                     date: weather.date
                 )
             })
-            
+            let weatherListViewModel = WeatherListViewModel(
+                header: WeatherHeaderViewModel(temperature: "\(Int(weatherList[0].temperature - 273.15)) °C"),
+                list: weatherViewModelList
+            )
             executor.runOnMain {
-                self.view?.showWeather(with: weatherViewModelList)
+                self.view?.showWeather(with: weatherListViewModel)
             }
         }
     }

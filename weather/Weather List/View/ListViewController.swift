@@ -3,16 +3,24 @@ import CoreLocation
 
 class ListViewController: UIViewController, WeatherListView {
     
+    @IBOutlet weak var heightHeaderConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var loaderView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var headerTemperatureLabel: UILabel!
     var interactor:  WeatherInteractor!
-    private var modelList = [WeatherViewModel]()
+    private var weatherListViewModel = WeatherListViewModel(header: WeatherHeaderViewModel(temperature: ""), list: [])
     private let locationManager = CLLocationManager()
+    private let heightHeaderMax: CGFloat = 250
+    private let heightHeaderMin: CGFloat = 44 + UIApplication.shared.statusBarFrame.height
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        heightHeaderConstraint.constant = heightHeaderMax
+        tableView.contentInset = UIEdgeInsets(top: heightHeaderMax, left: 0, bottom: 0, right: 0)
+        
         tableView.dataSource = self
         tableView.delegate = self
         locationManager.delegate = self
@@ -26,10 +34,11 @@ class ListViewController: UIViewController, WeatherListView {
         errorLabel.text = message
     }
     
-    func showWeather(with modelList: [WeatherViewModel]) {
+    func showWeather(with model: WeatherListViewModel) {
         errorView.isHidden = true
         loaderView.isHidden = true
-        self.modelList = modelList
+        headerTemperatureLabel.text = model.header.temperature
+        self.weatherListViewModel = model
         tableView.reloadData()
     }
     
@@ -46,14 +55,26 @@ class ListViewController: UIViewController, WeatherListView {
 
 extension ListViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = modelList[indexPath.row]
+        let model = weatherListViewModel.list[indexPath.row]
         interactor.selectRow(withId: model.timestamp)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y  < 0 {
+            let newHeight = max(abs(scrollView.contentOffset.y), heightHeaderMin)
+            let progression = (newHeight - heightHeaderMin) / (heightHeaderMax - heightHeaderMin)
+            errorView.alpha = progression
+            refreshButton.alpha = progression
+            heightHeaderConstraint.constant = newHeight
+        } else {
+            heightHeaderConstraint.constant = heightHeaderMin
+        }
     }
 }
 
 extension ListViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modelList.count
+        return weatherListViewModel.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,7 +82,7 @@ extension ListViewController : UITableViewDataSource {
             fatalError("The dequeued cell is not an instance of UITableViewCell.")
         }
 
-        let model = modelList[indexPath.row]
+        let model = weatherListViewModel.list[indexPath.row]
         cell.textLabel?.text = model.date
         return cell
     }

@@ -5,13 +5,14 @@ class weatherPresenterTests: XCTestCase {
 
     class MockView : WeatherListView {
         var message : String? = nil
-        var model : [WeatherViewModel] = []
+        var model : WeatherListViewModel? = nil
         var showEmptyWeatherCalled : Bool = false
         
         func showError(message: String) {
             self.message = message
         }
-        func showWeather(with model: [WeatherViewModel]) {
+        
+        func showWeather(with model: WeatherListViewModel) {
             self.model = model
         }
         
@@ -31,7 +32,7 @@ class weatherPresenterTests: XCTestCase {
         // THEN
         XCTAssertNotNil(mockView.message)
         XCTAssertEqual(mockView.message!, "Something went wrong cannot get the weather ! Please try again later")
-        XCTAssertEqual(mockView.model.count, 0)
+        XCTAssertEqual(mockView.model, nil)
     }
     
     func testPresentWeatherList() {
@@ -44,8 +45,11 @@ class weatherPresenterTests: XCTestCase {
         
         // THEN
         XCTAssertNil(mockView.message)
-        XCTAssertEqual(mockView.model.count, 1)
-        XCTAssertEqual(mockView.model[0], WeatherViewModel(timestamp: "1", date: "2019-07-20 14:00:00"))
+        XCTAssertEqual(mockView.model,
+                       WeatherListViewModel(
+                        header: WeatherHeaderViewModel(temperature: "0 °C"),
+                        list: [WeatherViewModel(timestamp: "1", date: "2019-07-20 14:00:00")]
+        ))
     }
     
     func testPresentOutdatedData() {
@@ -59,7 +63,7 @@ class weatherPresenterTests: XCTestCase {
         // THEN
         XCTAssertNotNil(mockView.message)
         XCTAssertEqual(mockView.message!, "This is offline data, they must be outdated")
-        XCTAssertEqual(mockView.model.count, 0)
+        XCTAssertEqual(mockView.model, nil)
     }
     
     func testPresentEmptyWeather() {
@@ -72,7 +76,7 @@ class weatherPresenterTests: XCTestCase {
         
         // THEN
         XCTAssertNil(mockView.message)
-        XCTAssertEqual(mockView.model.count, 0)
+        XCTAssertEqual(mockView.model, nil)
         XCTAssertTrue(mockView.showEmptyWeatherCalled)
     }
 }
