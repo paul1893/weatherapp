@@ -26,11 +26,11 @@ class WeatherDetailPresenterImpl : WeatherDetailPresenter {
     func presentWeather(with weather: Weather) {
         let weatherDetailViewModel = WeatherDetailViewModel(
             date: weather.date,
-            temperature: "\(Int(weather.temperature - 273.15)) °C",
-            rain: "\(weather.rain) mm",
-            humidity: "\(weather.humidity) %",
-            windAverage: "\(weather.windAverage) km/h",
-            windBurst: "\(weather.windBurst) km/h",
+            temperature: "%d °C".localizeWithFormat(arguments: Int(weather.temperature - 273.15)),
+            rain: "%.2f mm".localizeWithFormat(arguments: weather.rain),
+            humidity: "%d %".localizeWithFormat(arguments: Int(weather.humidity)),
+            windAverage: "%.2f km/h".localizeWithFormat(arguments: weather.windAverage),
+            windBurst: "%.2f km/h".localizeWithFormat(arguments: weather.windBurst),
             windDirection: getDirection(weather.windDirection)
         )
         

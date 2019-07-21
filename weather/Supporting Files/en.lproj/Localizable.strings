@@ -11,3 +11,7 @@
 "South-East" = "South-East";
 "No direction" = "No direction";
 "This is offline data, they must be outdated" = "This is offline data, they must be outdated";
+"%d °C" = "%d °C";
+"%.2f mm" = "%.2f mm";
+"%d %" = "%d %%";
+"%.2f km/h" = "%.2f km/h";

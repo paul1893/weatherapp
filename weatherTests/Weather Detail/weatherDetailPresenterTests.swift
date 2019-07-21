@@ -51,10 +51,10 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
             temperature: "0 °C",
-            rain: "0.0 mm",
-            humidity: "0.0 %",
-            windAverage: "0.0 km/h",
-            windBurst: "0.0 km/h",
+            rain: "0.00 mm",
+            humidity: "0 %",
+            windAverage: "0.00 km/h",
+            windBurst: "0.00 km/h",
             windDirection: "East"
         ))
     }
@@ -82,10 +82,10 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
             temperature: "0 °C",
-            rain: "0.0 mm",
-            humidity: "0.0 %",
-            windAverage: "0.0 km/h",
-            windBurst: "0.0 km/h",
+            rain: "0.00 mm",
+            humidity: "0 %",
+            windAverage: "0.00 km/h",
+            windBurst: "0.00 km/h",
             windDirection: "North-East"
         ))
     }
@@ -113,10 +113,10 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
             temperature: "0 °C",
-            rain: "0.0 mm",
-            humidity: "0.0 %",
-            windAverage: "0.0 km/h",
-            windBurst: "0.0 km/h",
+            rain: "0.00 mm",
+            humidity: "0 %",
+            windAverage: "0.00 km/h",
+            windBurst: "0.00 km/h",
             windDirection: "North"
         ))
     }
@@ -144,10 +144,10 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
             temperature: "0 °C",
-            rain: "0.0 mm",
-            humidity: "0.0 %",
-            windAverage: "0.0 km/h",
-            windBurst: "0.0 km/h",
+            rain: "0.00 mm",
+            humidity: "0 %",
+            windAverage: "0.00 km/h",
+            windBurst: "0.00 km/h",
             windDirection: "North-West"
         ))
     }
@@ -175,10 +175,10 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
             temperature: "0 °C",
-            rain: "0.0 mm",
-            humidity: "0.0 %",
-            windAverage: "0.0 km/h",
-            windBurst: "0.0 km/h",
+            rain: "0.00 mm",
+            humidity: "0 %",
+            windAverage: "0.00 km/h",
+            windBurst: "0.00 km/h",
             windDirection: "West"
         ))
     }
@@ -206,10 +206,10 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
             temperature: "0 °C",
-            rain: "0.0 mm",
-            humidity: "0.0 %",
-            windAverage: "0.0 km/h",
-            windBurst: "0.0 km/h",
+            rain: "0.00 mm",
+            humidity: "0 %",
+            windAverage: "0.00 km/h",
+            windBurst: "0.00 km/h",
             windDirection: "South-West"
         ))
     }
@@ -237,10 +237,10 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
             temperature: "0 °C",
-            rain: "0.0 mm",
-            humidity: "0.0 %",
-            windAverage: "0.0 km/h",
-            windBurst: "0.0 km/h",
+            rain: "0.00 mm",
+            humidity: "0 %",
+            windAverage: "0.00 km/h",
+            windBurst: "0.00 km/h",
             windDirection: "South"
         ))
     }
@@ -268,10 +268,10 @@ class weatherDetailPresenterTests: XCTestCase {
         XCTAssertEqual(mockView.model, WeatherDetailViewModel(
             date: "2019-07-20 14:00:00",
             temperature: "0 °C",
-            rain: "0.0 mm",
-            humidity: "0.0 %",
-            windAverage: "0.0 km/h",
-            windBurst: "0.0 km/h",
+            rain: "0.00 mm",
+            humidity: "0 %",
+            windAverage: "0.00 km/h",
+            windBurst: "0.00 km/h",
             windDirection: "South-East"
         ))
     }
