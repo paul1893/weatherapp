@@ -47,7 +47,7 @@ class weatherPresenterTests: XCTestCase {
         XCTAssertNil(mockView.message)
         XCTAssertEqual(mockView.model,
                        WeatherListViewModel(
-                        header: WeatherHeaderViewModel(temperature: "0 °C"),
+                        header: WeatherHeaderViewModel(temperature: "0 °C", date: "2019-07-20 14:00:00"),
                         list: [WeatherViewModel(timestamp: "1", date: "2019-07-20 14:00:00")]
         ))
     }

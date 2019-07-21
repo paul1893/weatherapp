@@ -10,8 +10,9 @@ class ListViewController: UIViewController, WeatherListView {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var headerTemperatureLabel: UILabel!
+    @IBOutlet weak var headerDateLabel: UILabel!
     var interactor:  WeatherInteractor!
-    private var weatherListViewModel = WeatherListViewModel(header: WeatherHeaderViewModel(temperature: ""), list: [])
+    private var weatherListViewModel = WeatherListViewModel(header: WeatherHeaderViewModel(temperature: "", date: ""), list: [])
     private let locationManager = CLLocationManager()
     private let heightHeaderMax: CGFloat = 250
     private let heightHeaderMin: CGFloat = 44 + UIApplication.shared.statusBarFrame.height
@@ -30,6 +31,7 @@ class ListViewController: UIViewController, WeatherListView {
     }
     
     func showError(message: String) {
+        loaderView.isHidden = true
         errorView.isHidden = false
         errorLabel.text = message
     }
@@ -38,6 +40,7 @@ class ListViewController: UIViewController, WeatherListView {
         errorView.isHidden = true
         loaderView.isHidden = true
         headerTemperatureLabel.text = model.header.temperature
+        headerDateLabel.text = model.header.date
         self.weatherListViewModel = model
         tableView.reloadData()
     }

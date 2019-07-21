@@ -76,6 +76,7 @@ class LocalWeatherRepositoryImpl: LocalWeatherRepository {
             }
             do {
                 try context.save()
+                try context.parent?.save()
             } catch {
                 // Do nothing
             }

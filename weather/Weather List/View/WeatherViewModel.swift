@@ -12,9 +12,11 @@ struct WeatherListViewModel : Equatable {
 
 struct WeatherHeaderViewModel : Equatable {
     let temperature : String
+    let date : String
     
-    init(temperature: String) {
+    init(temperature: String, date: String) {
         self.temperature = temperature
+        self.date = date
     }
 }
 

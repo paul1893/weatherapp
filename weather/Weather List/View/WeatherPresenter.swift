@@ -50,7 +50,10 @@ class WeatherPresenterImpl : WeatherPresenter {
                 )
             })
             let weatherListViewModel = WeatherListViewModel(
-                header: WeatherHeaderViewModel(temperature: "%d °C".localizeWithFormat(arguments: Int(weatherList[0].temperature - 273.15))),
+                header: WeatherHeaderViewModel(
+                    temperature: "%d °C".localizeWithFormat(arguments: Int(weatherList[0].temperature - 273.15)),
+                    date: weatherList[0].date
+                ),
                 list: weatherViewModelList
             )
             executor.runOnMain {
