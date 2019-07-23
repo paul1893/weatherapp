@@ -15,7 +15,7 @@ class ListViewController: UIViewController, WeatherListView {
     private var weatherListViewModel = WeatherListViewModel(header: WeatherHeaderViewModel(temperature: "", date: ""), list: [])
     private let locationManager = CLLocationManager()
     private let heightHeaderMax: CGFloat = 250
-    private let heightHeaderMin: CGFloat = 44 + UIApplication.shared.statusBarFrame.height
+    private let heightHeaderMin: CGFloat = 72 + UIApplication.shared.statusBarFrame.height
     
     override func viewDidLoad() {
         super.viewDidLoad()
